@@ -22,11 +22,13 @@ export interface StyledPullToRefreshState {
 
 const SHOW_LOADING_MS = 500
 const AFTER_LOADING_MS = 500
+const DEFAULT_BACKGROUND = 'none'
+const DEFAULT_COLOR = 'currentColor'
 
 export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProps, StyledPullToRefreshState> {
   state: StyledPullToRefreshState = {
     loadingDone: false,
-    error: false
+    error: false,
   }
 
   renderLoading = () => {
@@ -38,8 +40,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
   renderSpinner = () => {
     const {
       spinner = 'Loading...',
-      refreshBackground = 'rgba(0, 45, 98, 0.3)',
-      refreshColor = '#c41230',
+      refreshBackground = DEFAULT_BACKGROUND,
+      refreshColor = DEFAULT_COLOR,
     } = this.props
 
     return (
@@ -55,8 +57,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
     const {
       successIcon = <i className='mdi mdi-check' />,
       errorIcon = <i className='mdi mdi-close' />,
-      refreshBackground = 'rgba(0, 45, 98, 0.3)',
-      refreshColor = '#c41230',
+      refreshBackground = DEFAULT_BACKGROUND,
+      refreshColor = DEFAULT_COLOR,
     } = this.props
 
     const icon = this.state.error ? errorIcon : successIcon
@@ -80,10 +82,10 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
     const {
       downArrow = <i className='mdi mdi-arrow-down' />,
       upArrow = <i className='mdi mdi-arrow-up' />,
-      refreshBackground = 'rgba(0, 45, 98, 0.3)',
-      refreshColor = '#c41230',
+      refreshBackground = DEFAULT_BACKGROUND,
+      refreshColor = DEFAULT_COLOR,
     } = this.props
-    
+
     const arrow = willRefresh ? upArrow : downArrow
 
     return (
@@ -120,11 +122,11 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
     })
     .then(() => Promise.all([
       this.setLoadingDone(false),
-      this.setError(false)
+      this.setError(false),
     ]))
     .catch(() => Promise.all([
       this.setLoadingDone(false),
-      this.setError(false)
+      this.setError(false),
     ]))
 
     return promiseToReturn

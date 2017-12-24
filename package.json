@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^16.0.31",
+    "react": "^16.2.0",
     "typescript": "^2.6.2"
   },
   "peerDependencies": {
@@ -22,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/kgroat/react-refresher/issues"
   },
-  "homepage": "https://github.com/kgroat/react-refresher#readme"
+  "homepage": "https://github.com/kgroat/react-refresher#readme",
+  "dependencies": {
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0"
+  }
 }

@@ -46,7 +46,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
         onTouchEnd={this.onTouchEnd}
         onScroll={this.onScroll}
         style={{ overflowY: 'scroll', flexGrow: 1, flexShrink: 1, height: '100%' }}>
-        <div className='loader' style={{ height: loadingHeight, position: 'relative' }}>
+        <div className='loader' style={{ height: loadingHeight, position: 'relative', fontSize: loadingHeight * 3 / 7 }}>
           { this.renderLoader() }
         </div>
         <div className='content' ref={this.setContent}>
