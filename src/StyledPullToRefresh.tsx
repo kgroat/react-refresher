@@ -5,6 +5,9 @@ import { PullToRefresh } from './PullToRefresh'
 
 export interface StyledPullToRefreshProps {
   onRefresh: () => Promise<any>
+  loadingHeight?: React.CSSProperties['height']
+  animationTime?: number
+  className?: string
   downArrow?: JSX.Element | string
   upArrow?: JSX.Element | string
   errorIcon?: JSX.Element | string
@@ -12,7 +15,6 @@ export interface StyledPullToRefreshProps {
   spinner?: JSX.Element | string
   refreshBackground?: string
   refreshColor?: string
-  children?: any
 }
 
 export interface StyledPullToRefreshState {
@@ -133,12 +135,23 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
   }
 
   render () {
+    const {
+      loadingHeight,
+      animationTime,
+      className,
+      children,
+    } = this.props
+
     return (
       <PullToRefresh
         onRefresh={this.handleRefresh}
+        loadingHeight={loadingHeight}
+        animationTime={animationTime}
+        className={className}
         renderLoading={this.renderLoading}
-        renderRefresh={this.renderRefresh}>
-        {this.props.children}
+        renderRefresh={this.renderRefresh}
+      >
+        {children}
       </PullToRefresh>
     )
   }

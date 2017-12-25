@@ -5,7 +5,7 @@ export interface PullToRefreshProps {
   className?: string
   renderLoading?: () => React.ReactElement<any>
   renderRefresh?: (willRefresh: boolean) => React.ReactElement<any>
-  loadingHeight?: number
+  loadingHeight?: React.CSSProperties['height']
   animationTime?: number
 }
 
@@ -31,7 +31,18 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
     deltaTouchY: 0,
     scrollStart: 0,
     animationStartTime: null,
-    loading: false
+    loading: false,
+  }
+
+  componentDidMount () {
+    if (this.container) {
+      this.container.scrollTop = this.getLoadingHeight()
+    }
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleResize)
   }
 
   render () {
@@ -55,7 +66,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
       </div>
     )
   }
-  
+
   private getLoadingHeight = () => this.props.loadingHeight || DEFAULT_LOADING_HEIGHT
 
   private getAnimationTime = () => this.props.animationTime || DEFAULT_ANIMATION_TIME
@@ -77,7 +88,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
         originTouchY: touch.clientY,
         deltaTouchY: 0,
         scrollStart: this.container.scrollTop,
-        animationStartTime: null
+        animationStartTime: null,
       })
     }
   }
@@ -89,7 +100,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
       this.setState({
         touchId: null,
         originTouchY: null,
-        deltaTouchY: 0
+        deltaTouchY: 0,
       })
       if (actualScroll <= 0) {
         this.handleRefresh()
@@ -107,11 +118,11 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
       if (newTop < 0) {
         this.setState({
           deltaTouchY,
-          originTouchY: this.state.originTouchY - newTop
+          originTouchY: this.state.originTouchY - newTop,
         })
       } else {
         this.setState({
-          deltaTouchY
+          deltaTouchY,
         })
       }
 
@@ -139,7 +150,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
       return
     }
     this.setState({
-      loading: true
+      loading: true,
     })
 
     this.props.onRefresh()
@@ -150,7 +161,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
   private handleReset = () => {
     this.setState({
       loading: false,
-      animationStartTime: Date.now()
+      animationStartTime: Date.now(),
     })
     const scrollStart = this.container ? this.container.scrollTop : 0
     const scrollDelta = this.getLoadingHeight() - scrollStart
@@ -164,7 +175,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
           this.container.scrollTop = newScroll
         }
         this.setState({
-          animationStartTime: null
+          animationStartTime: null,
         })
       } else {
         const deltaPercent = timeDelta / this.getAnimationTime()
@@ -183,17 +194,6 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
     if (this.content) {
       this.content.style.minHeight = `${this.content.parentElement.clientHeight}px`
     }
-  }
-
-  componentDidMount () {
-    if (this.container) {
-      this.container.scrollTop = this.getLoadingHeight()
-    }
-    window.addEventListener('resize', this.handleResize)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.handleResize)
   }
 
   private renderLoading () {
