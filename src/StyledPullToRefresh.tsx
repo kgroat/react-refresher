@@ -51,8 +51,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
     } = this.props
 
     return (
-      <div style={{ background: refreshBackground, color: refreshColor, height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'scale(0.5)' }}>
+      <div style={{ background: refreshBackground, color: refreshColor, height: '100%', width: '100%', display: 'flex', alignItems: 'stretch', flexDirection: 'row' }}>
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           { spinner }
         </div>
       </div>
@@ -70,8 +70,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
     const icon = this.state.error ? errorIcon : successIcon
 
     return (
-      <div style={{ background: refreshBackground, color: refreshColor, height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ background: refreshBackground, color: refreshColor, height: '100%', flex: 1, display: 'flex', alignItems: 'stretch', flexDirection: 'row' }}>
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           { icon }
         </div>
       </div>
@@ -95,8 +95,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
     const arrow = willRefresh ? upArrow : downArrow
 
     return (
-      <div style={{ background: refreshBackground, color: refreshColor, height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ background: refreshBackground, color: refreshColor, height: '100%', flex: 1, display: 'flex', alignItems: 'stretch', flexDirection: 'row' }}>
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           { arrow }
         </div>
       </div>
