@@ -26,6 +26,10 @@ const SHOW_LOADING_MS = 500
 const AFTER_LOADING_MS = 500
 const DEFAULT_BACKGROUND = 'none'
 const DEFAULT_COLOR = 'currentColor'
+const DEFAULT_SUCCESS = '✔'
+const DEFAULT_ERROR = '✖'
+const DEFAULT_DOWN = '↓'
+const DEFAULT_UP = '↑'
 
 export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProps, StyledPullToRefreshState> {
   state: StyledPullToRefreshState = {
@@ -57,8 +61,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
 
   renderDone = () => {
     const {
-      successIcon = <i className='mdi mdi-check' />,
-      errorIcon = <i className='mdi mdi-close' />,
+      successIcon = DEFAULT_SUCCESS,
+      errorIcon = DEFAULT_ERROR,
       refreshBackground = DEFAULT_BACKGROUND,
       refreshColor = DEFAULT_COLOR,
     } = this.props
@@ -82,8 +86,8 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
 
   renderArrow = (willRefresh: boolean) => {
     const {
-      downArrow = <i className='mdi mdi-arrow-down' />,
-      upArrow = <i className='mdi mdi-arrow-up' />,
+      downArrow = DEFAULT_DOWN,
+      upArrow = DEFAULT_UP,
       refreshBackground = DEFAULT_BACKGROUND,
       refreshColor = DEFAULT_COLOR,
     } = this.props

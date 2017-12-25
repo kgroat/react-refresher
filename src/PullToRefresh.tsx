@@ -201,7 +201,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
       return this.props.renderLoading()
     } else {
       return (
-        <div style={{ textAlign: 'center', fontSize: 30, verticalAlign: 'center' }}>
+        <div style={{ textAlign: 'center', verticalAlign: 'center' }}>
           <span style={{ display: 'inline-block' }}>Loading...</span>
         </div>
       )
@@ -214,7 +214,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
     if (this.props.renderRefresh) {
       return this.props.renderRefresh(willRefresh)
     } else {
-      return <div style={{ textAlign: 'center', fontSize: 30 }}>{ willRefresh ? '↑' : '↓' }</div>
+      return <div style={{ textAlign: 'center' }}>{ willRefresh ? '↑' : '↓' }</div>
     }
   }
 
