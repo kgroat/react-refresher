@@ -4,12 +4,14 @@
   "description": "A pull-to-refresh component for react",
   "main": "index.js",
   "scripts": {
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "deploy": "np"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^16.0.31",
+    "np": "^2.18.3",
     "react": "^16.2.0",
     "typescript": "^2.6.2"
   },
