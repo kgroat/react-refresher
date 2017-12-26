@@ -1,5 +1,6 @@
 
 import * as React from 'react'
+import * as PropTypes from 'prop-types'
 
 import { PullToRefresh } from './PullToRefresh'
 
@@ -32,6 +33,39 @@ const DEFAULT_DOWN = '↓'
 const DEFAULT_UP = '↑'
 
 export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProps, StyledPullToRefreshState> {
+
+  static propTypes = {
+    onRefresh: PropTypes.func.isRequired,
+    loadingHeight: PropTypes.oneOf([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    animationTime: PropTypes.number,
+    className: PropTypes.string,
+    downArrow: PropTypes.oneOf([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
+    upArrow: PropTypes.oneOf([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
+    errorIcon: PropTypes.oneOf([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
+    successIcon: PropTypes.oneOf([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
+    spinner: PropTypes.oneOf([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
+    refreshBackground: PropTypes.string,
+    refreshColor: PropTypes.string,
+  }
+
   state: StyledPullToRefreshState = {
     loadingDone: false,
     error: false,
