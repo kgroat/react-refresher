@@ -55,10 +55,7 @@ class MyList extends React.Component {
   }
 }
 ```
-'✔'
-'✖'
-'↓'
-'↑'
+
 ### API
 
 | Prop              | Type          | Required? | Default          | Notes                                                                              |
