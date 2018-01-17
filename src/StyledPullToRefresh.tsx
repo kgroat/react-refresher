@@ -36,29 +36,29 @@ export class StyledPullToRefresh extends React.Component<StyledPullToRefreshProp
 
   static propTypes = {
     onRefresh: PropTypes.func.isRequired,
-    loadingHeight: PropTypes.oneOf([
+    loadingHeight: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]),
     animationTime: PropTypes.number,
     className: PropTypes.string,
-    downArrow: PropTypes.oneOf([
+    downArrow: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.string,
     ]),
-    upArrow: PropTypes.oneOf([
+    upArrow: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.string,
     ]),
-    errorIcon: PropTypes.oneOf([
+    errorIcon: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.string,
     ]),
-    successIcon: PropTypes.oneOf([
+    successIcon: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.string,
     ]),
-    spinner: PropTypes.oneOf([
+    spinner: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.string,
     ]),
