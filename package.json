@@ -6,7 +6,8 @@
   "scripts": {
     "prepare": "tsc",
     "test": "tslint --project .",
-    "deploy": "np"
+    "predeploy": "np --no-yarn",
+    "deploy": "np --no-yarn --yolo"
   },
   "author": "",
   "license": "ISC",
