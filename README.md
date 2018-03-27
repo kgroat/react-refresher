@@ -64,11 +64,11 @@ class MyList extends React.Component {
 | loadingHeight     | any           | No        | `70`             | Can be any value valid for the `height` style prop in React                        |
 | animationTime     | number        | No        | `500`            | Length of the refresher hiding animation, in milliseconds                          |
 | className         | String        | No        | `''`             | This is applied to the entire refresher area (including content area)              |
-| downArrow         | JSX.Element   | No        | `'↓'`            | Can also just be a string; default is from [mdi](https://materialdesignicons.com/) |
-| upArrow           | JSX.Element   | No        | `'↑'`            | Can also just be a string; default is from [mdi](https://materialdesignicons.com/) |
-| errorIcon         | JSX.Element   | No        | `'✖'`            | Can also just be a string; default is from [mdi](https://materialdesignicons.com/) |
-| successIcon       | JSX.Element   | No        | `'✔'`            | Can also just be a string; default is from [mdi](https://materialdesignicons.com/) |
-| spinner           | JSX.Element   | No        | `'Loading...'`   | Can also just be a string; default is from [mdi](https://materialdesignicons.com/) |
+| downArrow         | JSX.Element   | No        | `'↓'`            | Can also just be a string                                                          |
+| upArrow           | JSX.Element   | No        | `'↑'`            | Can also just be a string                                                          |
+| errorIcon         | JSX.Element   | No        | `'✖'`            | Can also just be a string                                                          |
+| successIcon       | JSX.Element   | No        | `'✔'`            | Can also just be a string                                                          |
+| spinner           | JSX.Element   | No        | `'Loading...'`   | Can also just be a string                                                          |
 | refreshBackground | String        | No        | `'none'`         | Can be any CSS value that is appropriate for the background prop                   |
 | refreshColor      | String        | No        | `'currentColor'` | Can be any CSS value that is appropriate for the color prop                        |
 

@@ -11,15 +11,12 @@ export interface PullToRefreshProps {
 
 export interface PullToRefreshState {
   touchState: Touch | null
-  deltaTouchY: number
-  scrollStart: number
   animationStartTime: number | null
   loading: boolean
 }
 
 export interface Touch {
   touchId: number
-  originTouchY: number
 }
 
 const DEFAULT_LOADING_HEIGHT = 70
@@ -31,8 +28,6 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
 
   state: PullToRefreshState = {
     touchState: null,
-    deltaTouchY: 0,
-    scrollStart: 0,
     animationStartTime: null,
     loading: false,
   }
@@ -76,6 +71,10 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
 
   private getAnimationTime = () => this.props.animationTime || DEFAULT_ANIMATION_TIME
 
+  private getLoadingBreakpoint = () => this.getLoadingHeight() / 3
+
+  private willRefresh = () => this.container ? this.container.scrollTop <= this.getLoadingBreakpoint() : false
+
   private setContainer = (el: HTMLDivElement) => {
     this.container = el
   }
@@ -86,19 +85,22 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
   }
 
   private getTouch (ev: React.TouchEvent<HTMLDivElement>): React.Touch | null {
-    return this.state.touchState ? ev.touches.item(this.state.touchState.touchId) : null
+    if (!this.state.touchState) {
+      return null
+    }
+
+    const { touchId } = this.state.touchState
+    return Array.prototype.find.call(ev.changedTouches, (touch: React.Touch) => touch.identifier === touchId)
   }
 
   private onTouchStart = (ev: React.TouchEvent<HTMLDivElement>) => {
     if (!this.state.loading && this.state.touchState === null) {
       const touch = ev.touches[0]
+
       this.setState({
         touchState: {
           touchId: touch.identifier,
-          originTouchY: touch.clientY,
         },
-        deltaTouchY: 0,
-        scrollStart: this.container.scrollTop,
         animationStartTime: null,
       })
     }
@@ -106,13 +108,11 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
 
   private onTouchEnd = (ev: React.TouchEvent<HTMLDivElement>) => {
     const touch = this.getTouch(ev)
-    if (!touch) {
-      const actualScroll = this.state.scrollStart - this.state.deltaTouchY
+    if (touch) {
       this.setState({
         touchState: null,
-        deltaTouchY: 0,
       })
-      if (actualScroll <= 0) {
+      if (this.willRefresh()) {
         this.handleRefresh()
       } else {
         this.handleReset()
@@ -123,25 +123,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
   private onTouchMove = (ev: React.TouchEvent<HTMLDivElement>) => {
     const touch = this.getTouch(ev)
     if (this.state.touchState && touch) {
-      const deltaTouchY = touch.clientY - this.state.touchState.originTouchY
-      const newTop = this.state.scrollStart - deltaTouchY
-      if (newTop < 0) {
-        this.setState({
-          deltaTouchY,
-          touchState: {
-            touchId: this.state.touchState.touchId,
-            originTouchY: this.state.touchState.originTouchY - newTop,
-          },
-        })
-      } else {
-        this.setState({
-          deltaTouchY,
-        })
-      }
-
-      if (this.container) {
-        this.container.scrollTop = newTop
-      }
+      this.forceUpdate()
     }
   }
 
@@ -153,8 +135,6 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
       && this.container.scrollTop < this.getLoadingHeight()) {
       ev.preventDefault()
       this.container.scrollTop = this.getLoadingHeight()
-    } else if (this.state.touchState) {
-      ev.preventDefault()
     }
   }
 
@@ -225,12 +205,10 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
   }
 
   private renderRefresh () {
-    const actualScroll = this.state.scrollStart - this.state.deltaTouchY
-    const willRefresh = actualScroll <= 0
     if (this.props.renderRefresh) {
-      return this.props.renderRefresh(willRefresh)
+      return this.props.renderRefresh(this.willRefresh())
     } else {
-      return <div style={{ textAlign: 'center' }}>{ willRefresh ? '↑' : '↓' }</div>
+      return <div style={{ textAlign: 'center' }}>{ this.willRefresh() ? '↑' : '↓' }</div>
     }
   }
 
