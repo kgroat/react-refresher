@@ -32,7 +32,10 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
     loading: false,
   }
 
+  private mounted = false
+
   componentDidMount () {
+    this.mounted = true
     if (this.container) {
       this.container.scrollTop = this.getLoadingHeight()
     }
@@ -40,6 +43,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
   }
 
   componentWillUnmount () {
+    this.mounted = false
     window.removeEventListener('resize', this.handleResize)
   }
 
@@ -160,6 +164,9 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
     const scrollDelta = this.getLoadingHeight() - scrollStart
 
     const setScroll = () => {
+      if (!this.mounted) {
+        return
+      }
       const scrollTop = this.container ? this.container.scrollTop : 0
       if (!this.state.animationStartTime || this.state.touchState) {
         return
